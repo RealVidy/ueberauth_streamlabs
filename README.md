@@ -92,25 +92,16 @@ Or with options:
 
     /auth/streamlabs?scope=donations.read
 
-By default the requested scope is "email". Scope can be configured either explicitly as a `scope` query value on the request path or in your configuration:
+By default the requested scope is "donations.read". Scope can be configured either explicitly as a `scope` query value on the request path or in your configuration:
 
 ```elixir
 config :ueberauth, Ueberauth,
   providers: [
-    streamlabs: {Ueberauth.Strategy.Streamlabs, [default_scope: "email profile plus.me"]}
+    streamlabs: {Ueberauth.Strategy.Streamlabs, [default_scope: "donations.read donations.create"]}
   ]
 ```
 
-You can also pass options such as the `hd` parameter to limit sign-in to a particular Streamlabs Apps hosted domain, or `prompt` and `access_type` options to request refresh_tokens and offline access.
-
-```elixir
-config :ueberauth, Ueberauth,
-  providers: [
-    streamlabs: {Ueberauth.Strategy.Streamlabs, [hd: "example.com", prompt: "select_account", access_type: "offline"]}
-  ]
-```
-
-To guard against client-side request modification, it's important to still check the domain in `info.urls[:website]` within the `Ueberauth.Auth` struct if you want to limit sign-in to a specific domain.
+See [streamlabs scopes](https://streamlabs.readme.io/docs/scopes)
 
 ## License
 
