@@ -54,10 +54,6 @@ defmodule Ueberauth.Strategy.Streamlabs.OAuth do
       {:error, %{body: %{"error" => error, "error_description" => description}}} ->
         {:error, {error, description}}
 
-      {:ok, %{token: %{access_token: nil} = token}} ->
-        %{"error" => error, "error_description" => description} = token.other_params
-        {:error, {error, description}}
-
       {:ok, %{token: token}} ->
         {:ok, token}
     end

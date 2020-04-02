@@ -1,16 +1,22 @@
-# Überauth Google
+# Überauth Streamlabs
 
-> Google OAuth2 strategy for Überauth.
+> Streamlabs OAuth2 strategy for Überauth.
+
+## Disclaimer
+
+This is an early draft of the Streamlabs strategy. Please be advised that it will probably not be perfect.
+
+Pull requests and feedback are definitely welcome!
 
 ## Installation
 
-1. Setup your application at [Google Developer Console](https://console.developers.google.com/home).
+1. Setup your application at [Register an Application](https://streamlabs.com/dashboard/#/apps/register).
 
-1. Add `:ueberauth_google` to your list of dependencies in `mix.exs`:
+1. Add `:ueberauth_streamlabs` to your list of dependencies in `mix.exs`:
 
     ```elixir
     def deps do
-      [{:ueberauth_google, "~> 0.8"}]
+      [{:ueberauth_streamlabs, git: "https://github.com/RealVidy/ueberauth_streamlabs"}]
     end
     ```
 
@@ -18,16 +24,16 @@
 
     ```elixir
     def application do
-      [applications: [:ueberauth_google]]
+      [applications: [:ueberauth_streamlabs]]
     end
     ```
 
-1. Add Google to your Überauth configuration:
+1. Add Streamlabs to your Überauth configuration:
 
     ```elixir
     config :ueberauth, Ueberauth,
       providers: [
-        google: {Ueberauth.Strategy.Google, []}
+        streamlabs: {Ueberauth.Strategy.Streamlabs, []}
       ]
     ```
 
@@ -37,18 +43,18 @@
     variables in the compile time:
 
     ```elixir
-    config :ueberauth, Ueberauth.Strategy.Google.OAuth,
-      client_id: System.get_env("GOOGLE_CLIENT_ID"),
-      client_secret: System.get_env("GOOGLE_CLIENT_SECRET")
+    config :ueberauth, Ueberauth.Strategy.Streamlabs.OAuth,
+      client_id: System.get_env("STREAMLABS_CLIENT_ID"),
+      client_secret: System.get_env("STREAMLABS_CLIENT_SECRET")
     ```
 
     Use that if you want to read client ID/secret from the environment 
     variables in the run time:
 
     ```elixir
-    config :ueberauth, Ueberauth.Strategy.Google.OAuth,
-      client_id: {System, :get_env, ["GOOGLE_CLIENT_ID"]},
-      client_secret: {System, :get_env, ["GOOGLE_CLIENT_SECRET"]}
+    config :ueberauth, Ueberauth.Strategy.Streamlabs.OAuth,
+      client_id: {System, :get_env, ["STREAMLABS_CLIENT_ID"]},
+      client_secret: {System, :get_env, ["STREAMLABS_CLIENT_SECRET"]}
     ```
 
 1.  Include the Überauth plug in your controller:
@@ -80,27 +86,27 @@ For an example implementation see the [Überauth Example](https://github.com/ueb
 
 Depending on the configured url you can initiate the request through:
 
-    /auth/google
+    /auth/streamlabs
 
 Or with options:
 
-    /auth/google?scope=email%20profile
+    /auth/streamlabs?scope=donations.read
 
 By default the requested scope is "email". Scope can be configured either explicitly as a `scope` query value on the request path or in your configuration:
 
 ```elixir
 config :ueberauth, Ueberauth,
   providers: [
-    google: {Ueberauth.Strategy.Google, [default_scope: "email profile plus.me"]}
+    streamlabs: {Ueberauth.Strategy.Streamlabs, [default_scope: "email profile plus.me"]}
   ]
 ```
 
-You can also pass options such as the `hd` parameter to limit sign-in to a particular Google Apps hosted domain, or `prompt` and `access_type` options to request refresh_tokens and offline access.
+You can also pass options such as the `hd` parameter to limit sign-in to a particular Streamlabs Apps hosted domain, or `prompt` and `access_type` options to request refresh_tokens and offline access.
 
 ```elixir
 config :ueberauth, Ueberauth,
   providers: [
-    google: {Ueberauth.Strategy.Google, [hd: "example.com", prompt: "select_account", access_type: "offline"]}
+    streamlabs: {Ueberauth.Strategy.Streamlabs, [hd: "example.com", prompt: "select_account", access_type: "offline"]}
   ]
 ```
 
@@ -108,4 +114,4 @@ To guard against client-side request modification, it's important to still check
 
 ## License
 
-Please see [LICENSE](https://github.com/ueberauth/ueberauth_google/blob/master/LICENSE) for licensing details.
+Please see [LICENSE](https://github.com/ueberauth/ueberauth_streamlabs/blob/master/LICENSE) for licensing details.

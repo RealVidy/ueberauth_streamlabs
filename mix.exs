@@ -2,7 +2,7 @@ defmodule UeberauthStreamlabs.MixProject do
   use Mix.Project
 
   @version "0.1.0"
-  # @url "https://github.com/ueberauth/ueberauth_google"
+  @url "https://github.com/RealVidy/ueberauth_streamlabs"
 
   def project do
     [
@@ -10,13 +10,10 @@ defmodule UeberauthStreamlabs.MixProject do
       version: @version,
       name: "Ueberauth Streamlabs Strategy",
       package: package(),
-      build_path: "../../_build",
-      config_path: "../../config/config.exs",
-      deps_path: "../../deps",
-      lockfile: "../../mix.lock",
       elixir: "~> 1.9",
-      # source_url: @url,
-      # homepage_url: @url,
+      source_url: @url,
+      homepage_url: @url,
+      build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       description: description(),
       deps: deps(),
@@ -35,7 +32,8 @@ defmodule UeberauthStreamlabs.MixProject do
   defp deps do
     [
       {:oauth2, "~> 1.0 or ~> 2.0"},
-      {:ueberauth, "~> 0.6.0"}
+      {:ueberauth, "~> 0.6.0"},
+      {:mock, "~> 0.3", only: :test}
     ]
   end
 
@@ -50,9 +48,9 @@ defmodule UeberauthStreamlabs.MixProject do
   defp package do
     [
       files: ["lib", "mix.exs", "README.md", "LICENSE"],
-      maintainers: ["Victor Degliame"],
-      licenses: ["MIT"]
-      # links: %{GitHub: @url}
+      maintainers: ["Victor 'RealVidy' Degliame"],
+      licenses: ["MIT"],
+      links: %{GitHub: @url}
     ]
   end
 end

@@ -41,8 +41,6 @@ defmodule Ueberauth.Strategy.Streamlabs do
 
   @doc false
   def handle_callback!(conn) do
-    IO.puts("LOOKING AT CONN")
-    IO.inspect(conn)
     set_errors!(conn, [error("missing_code", "No code received")])
   end
 
@@ -62,7 +60,7 @@ defmodule Ueberauth.Strategy.Streamlabs do
       |> option(:uid_field)
       |> to_string
 
-    get_in(conn.private.streamlabs_user, [:streamlabs, uid_field])
+    get_in(conn.private.streamlabs_user, ["streamlabs", uid_field])
   end
 
   @doc """
@@ -121,7 +119,7 @@ defmodule Ueberauth.Strategy.Streamlabs do
         put_private(conn, :streamlabs_user, user)
 
       {:error, %OAuth2.Response{status_code: status_code}} ->
-        set_errors!(conn, [error("OAuth2", status_code)])
+        set_errors!(conn, [error("OAuth2", Integer.to_string(status_code))])
 
       {:error, %OAuth2.Error{reason: reason}} ->
         set_errors!(conn, [error("OAuth2", reason)])
