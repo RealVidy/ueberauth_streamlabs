@@ -5,6 +5,7 @@
 ## Disclaimer
 
 This is an early draft of the Streamlabs strategy. Please be advised that it will probably not be perfect.
+Streamlabs does not return much information on their users. You will only have access to an ID and a display name.
 
 Pull requests and feedback are definitely welcome!
 
